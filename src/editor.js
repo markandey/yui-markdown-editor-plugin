@@ -1,7 +1,10 @@
 YUI.add('mdeditor', function(Y) {
 	"use strict"
-
-	function editor(textarea) {
+	/*
+	    FUNCTION: Editor
+	    RETURNS: constructor of editor class
+	*/
+	function Editor(textarea) {
 		this.textarea = textarea;
 		this.converter = new Y.Showdown.converter();
 		this.isPreview = false;
@@ -10,26 +13,26 @@ YUI.add('mdeditor', function(Y) {
 		this.caretPosition = 0;
 	}
 
-	/*************************
-      editor prototype
-   **************************/
-	editor.prototype = {
-		/**************
-	    setText
-	   ************/
+	
+	Editor.prototype = {
+		/*
+		    FUNCTION: getText
+		    RETURNS: 
+		*/
 		getText: function() {
 			return this.textarea.get('value');
 		},
-		/**************
-	    setText
-	   ************/
+		/*
+		    FUNCTION: setText
+		    RETURNS: 
+		*/
 		setText: function(value) {
 			return this.textarea.set('value', value);
 		},
-		/*****************
-	    getCurrentSelecttion
-	    // gets the current selection
-	   *****************/
+		/*
+		    FUNCTION: getCurrentSelection
+		    RETURNS: 
+		*/
 		getCurrentSelection: function() {
 			var caretPos = this._getCaretPos(this.textarea._node);
 			if (caretPos.start != caretPos.end) {
@@ -40,26 +43,26 @@ YUI.add('mdeditor', function(Y) {
 
 			return caretPos
 		},
-		/*****************
-	    wrapCurrentSelection
-	    // gets the current selection
-	   *****************/
+		/*
+		    FUNCTION: wrapCurrentSelection
+		    RETURNS: 
+		*/
 		wrapCurrentSelection: function(sWrap, eWrap) {
 			eWrap = eWrap || sWrap;
 			this._replaceSelection(this.textarea._node, sWrap + this.getCurrentSelection().text + eWrap);
 		},
-		/*****************
-	    replaceCurrentSelection
-	    // gets the current selection
-	   *****************/
+		/*
+		    FUNCTION: replaceCurrentSelection
+		    RETURNS: 
+		*/
 		replaceCurrentSelection: function(text) {
 			text = text || "";
 			this._replaceSelection(this.textarea._node, text);
 		},
-		/*****************
-	    preview
-	    // gets the current selection
-	   *****************/
+		/*
+		    FUNCTION: preview
+		    RETURNS: 
+		*/
 		preview: function(cmd) {
 			if (!this.isPreview) {
 				if (this.previewOverlay === undefined) {
@@ -87,10 +90,10 @@ YUI.add('mdeditor', function(Y) {
 			}
 			this.isPreview = !this.isPreview;
 		},
-		/*****************
-	    executeCommand
-	    // executes command
-	   *****************/
+		/*
+		    FUNCTION: executeCommand
+		    RETURNS: 
+		*/
 		executeCommand: function(cmd) {
 			var charPos = this._getCaretPos(this.textarea._node);
 			var isToInsert = (charPos.start == charPos.end);
@@ -115,18 +118,30 @@ YUI.add('mdeditor', function(Y) {
 			}
 
 		},
+		/*
+		    FUNCTION: _commandBold
+		    RETURNS: 
+		*/
 		_commandBold: function(cmd, charPos, isToInsert) {
 			if (isToInsert) {
 				return this.insertExample(cmd);
 			}
 			this.wrapCurrentSelection('**');
 		},
+		/*
+		    FUNCTION: _commandItalic
+		    RETURNS: 
+		*/
 		_commandItalic: function(cmd, charPos, isToInsert) {
 			if (isToInsert) {
 				return this.insertExample(cmd);
 			}
 			this.wrapCurrentSelection('--');
 		},
+		/*
+		    FUNCTION: _commandCode
+		    RETURNS: 
+		*/
 		_commandCode: function(cmd, charPos, isToInsert) {
 			if (isToInsert) {
 				return this.insertExample(cmd);
@@ -139,6 +154,10 @@ YUI.add('mdeditor', function(Y) {
 				this.replaceCurrentSelection(curText);
 			}
 		},
+		/*
+		    FUNCTION: _commandLink
+		    RETURNS: 
+		*/
 		_commandLink: function(cmd, charPos, isToInsert) {
 			if (isToInsert) {
 				return this.insertExample(cmd);
@@ -148,6 +167,10 @@ YUI.add('mdeditor', function(Y) {
 			var mdString = "[{text}]({link})".replace("{text}", curText).replace("{link}", linkurl);
 			this.replaceCurrentSelection(mdString);
 		},
+		/*
+		    FUNCTION: insertExample
+		    RETURNS: 
+		*/
 		insertExample: function(cmd) {
 			var insertText = {
 				'bold': "**strong text**",
@@ -157,10 +180,10 @@ YUI.add('mdeditor', function(Y) {
 			}
 			this._insertAtCaretPos(this.textarea._node, insertText[cmd]);
 		},
-		/*****************
-	    _replaceSelection
-	    // executes command
-	   *****************/
+		/*
+		    FUNCTION: _replaceSelection
+		    RETURNS: 
+		*/
 		_replaceSelection: function(textAreaNode, inputStr) {
 			var input = textAreaNode;
 			var start;
@@ -232,6 +255,10 @@ YUI.add('mdeditor', function(Y) {
 			}
 			return this;
 		},
+		/*
+		    FUNCTION: _getCaretPos
+		    RETURNS: 
+		*/
 		_getCaretPos: function(textAreaNode) {
 			var carPos = {
 				'start': null,
@@ -254,6 +281,10 @@ YUI.add('mdeditor', function(Y) {
 			}
 			return carPos;
 		},
+		/*
+		    FUNCTION: _setSelection
+		    RETURNS: 
+		*/
 		_setSelection: function(textAreaNode, startPosition, endPosition) {
 			startPosition = parseInt(startPosition);
 			endPosition = parseInt(endPosition);
@@ -324,7 +355,10 @@ YUI.add('mdeditor', function(Y) {
 				return this;
 			}
 		},
-		// insert text at current caret position
+		/*
+		    FUNCTION: _insertAtCaretPos
+		    RETURNS: 
+		*/
 		_insertAtCaretPos: function(textAreaNode, inputStr) {
 			var input = textAreaNode;
 			var start;
@@ -456,6 +490,10 @@ YUI.add('mdeditor', function(Y) {
 			}
 			return this;
 		},
+		/*
+		    FUNCTION: _initCaretPostion
+		    RETURNS: 
+		*/
 		_initCaretPostion: function(textAreaNode) {
 			if (navigator.appName == "Microsoft Internet Explorer") {
 				var input=textAreaNode;
@@ -490,7 +528,7 @@ YUI.add('mdeditor', function(Y) {
    ***********/
 	Y.mdEditor = {
 		create: function(textarea) {
-			return new editor(Y.one(textarea));
+			return new Editor(Y.one(textarea));
 		}
 	};
 }, '0.0.0', {
