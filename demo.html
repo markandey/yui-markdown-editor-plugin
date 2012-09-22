@@ -1,0 +1,287 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>YUI markdown editor plugin</title>
+	
+	<script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js"></script>
+	<script src="./src/showdown.js"></script>
+	<script src="./src/editor.js"></script>
+	<script type="text/javascript">
+	YUI().use('mdeditor',function(Y) {
+		Y.on('domready', function() {
+			mdeditor=Y.mdEditor.create('#editor');
+
+			Y.all('.editorcontrols .cmd-btn').each(function(cmdNode){
+				cmdNode.on('click',function(e){
+					mdeditor.executeCommand(cmdNode.getAttribute('data-rel'));
+				})
+			})
+		});
+	});
+	</script>
+	<style type="text/css">
+	html,body{
+		text-align: center;
+	}
+	#main{
+		width:970px;
+		margin: auto;
+		text-align: left;
+
+	}
+	#bd,#footer{
+		min-height: 100px;
+		padding: 10px;
+		
+	}
+	#header{
+		min-height:50px;
+		color:#666;
+	}
+	#footer{
+		height:100px;
+		background:#eee;
+	}
+	.editorcontrols
+	{
+		width:90%;
+		background: #ddd;
+	}
+	.editor{
+		height:260px;
+		resize: none;
+	}
+	.editorcontrols{
+		overflow:hidden;
+		padding:10px;
+		border-radius: 3px 3px 0 0;
+	}
+	.editorcontrols li{
+		float: left;
+		background: #fff;
+		border-radius: 2px;
+		border-right: 1px ridge #e0e0e0;
+
+	}
+	.editorcontrols li.sep{
+		background:transparent;
+	}
+
+	.editorcontrols .edit-btn {
+		height:20px;
+		min-width:20px;
+		margin: 8px 4px 5px 4px;
+	}
+	.editorcontrols .sep{
+		content:"\0000a0";
+		display: block;
+		background-color: transparent;
+	}
+	.editorcontrols .cmd-btn span{
+		-margin-left:-1000px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+	}
+	.editorcontrols .cmd-btn{
+		height:20px;
+		display: block;;
+		cursor: pointer;
+		font-family: arial, helvetica, clean, sans-serif;
+		text-align: center;
+		color:#888;	
+		overflow: hidden;
+		padding:0;
+
+	}
+	textarea{
+		width:95%;
+	}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<div id="header">
+			<h1 class="grad-darkgrey-vertical">YUI Markdown Plugin</h1>
+			<hr>
+		</div>
+		<div id="bd">
+			
+			<div class="ctrlgroup">
+				<div class="toolbar">
+					<ul class="editorcontrols">
+						<li>
+							<div class="edit-btn cmd-btn" data-rel="bold" title="bold"><span>B</span></div>
+						</li>
+						<li>
+							<div  class="edit-btn cmd-btn"data-rel="italic" title="italic"><span>I</span></div>
+						</li>
+						<li class="sep">
+							<span class="edit-btn sep"></span>
+						</li>
+						<li>
+							<div class="edit-btn cmd-btn"data-rel="link" title="link"><span>link</span></div>
+						</li>
+						<li>
+							<div class="edit-btn cmd-btn" data-rel="code" title="code"><span>&lt;/&gt;</span></div>
+						</li>
+						<li class="sep">
+							<span class="edit-btn sep"></span>
+						</li>
+						<li>
+							<div class="edit-btn cmd-btn" data-rel="preview" title="preview"><span>preview</span></div>
+						</li>
+					</ul>
+				</div>
+				<textarea  name="description" class="editor forumtextarea" id="editor" cols="30" rows="10"></textarea>
+			</div>
+		</div>
+<p>
+   
+</p>
+<pre class="prettyprint">
+	&lt;script src=&quot;http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;<br/>	&lt;script src=&quot;showdown.js&quot;&gt;&lt;/script&gt;<br/>	&lt;script src=&quot;editor.js&quot;&gt;&lt;/script&gt;
+	&lt;script&gt;
+		YUI().use('mdeditor', function(Y) {
+			Y.on('domready', function() {
+				mdeditor = Y.mdEditor.create('#editor');
+				Y.all('.editorcontrols .cmd-btn').each(function(cmdNode) {
+					cmdNode.on('click', function(e) {
+						mdeditor.executeCommand(cmdNode.getAttribute('data-rel'));
+					})
+				})
+			});
+		});
+	&lt;/script&gt;
+</pre>
+<p>
+		<strong>Note: Take away of this project is not this UI. </strong>
+</p>
+<div id="footer">
+	By <a href="http://www.markandey.com">Markandey</a>
+</div>	
+</div>
+<script src="http://yuilibrary.com/vendor/prettify/prettify-min.js"></script>
+<script>
+	prettyPrint()
+</script>
+<style type="text/css">
+		.prettyprint{
+			padding: 20px;	
+		}
+		
+		.str
+		{
+			color: #EC7600;
+		}
+		.kwd
+		{
+			color: #93C763;
+		}
+		.com
+		{
+			color: #66747B;
+		}
+		.typ
+		{
+			color: #678CB1;
+		}
+		.lit
+		{
+			color: #FACD22;
+		}
+		.pun
+		{
+			color: #F1F2F3;
+		}
+		.pln
+		{
+			color: #F1F2F3;
+		}
+		.tag
+		{
+			color: #8AC763;
+		}
+		.atn
+		{
+			color: #E0E2E4;
+		}
+		.atv
+		{
+			color: #EC7600;
+		}
+		.dec
+		{
+			color: purple;
+		}
+		pre.prettyprint
+		{
+			border: 0px solid #888;
+		}
+		ol.linenums
+		{
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		.prettyprint {
+			background: #000;
+		}
+		li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+		{
+			color: #555;
+			list-style-type: decimal;
+		}
+		li.L1, li.L3, li.L5, li.L7, li.L9 {
+			background: #111;
+		}
+		@media print
+		{
+			.str
+			{
+				color: #060;
+			}
+			.kwd
+			{
+				color: #006;
+				font-weight: bold;
+			}
+			.com
+			{
+				color: #600;
+				font-style: italic;
+			}
+			.typ
+			{
+				color: #404;
+				font-weight: bold;
+			}
+			.lit
+			{
+				color: #044;
+			}
+			.pun
+			{
+				color: #440;
+			}
+			.pln
+			{
+				color: #000;
+			}
+			.tag
+			{
+				color: #006;
+				font-weight: bold;
+			}
+			.atn
+			{
+				color: #404;
+			}
+			.atv
+			{
+				color: #060;
+			}
+		}
+
+</style>
+</body>
+</html>
